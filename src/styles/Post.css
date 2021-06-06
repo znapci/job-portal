@@ -1,5 +1,5 @@
 .post{
-    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     flex-direction: column;
     min-height: 20vh;
     background: rgb(255, 255, 255);
@@ -16,4 +16,59 @@
     width: 100%;
     height: 15vh;
     cursor: pointer;
+}
+.post-company-field {
+    font-size: 1.5rem;
+}
+
+.post-title-field {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: gray;
+}
+
+.post-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.post-company-logo {
+    margin-right: 0.2rem;
+    width:64px;
+    height:64px
+}
+
+.post-clickable-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-clickable-content strong {
+    color: darkgreen;
+}
+
+.post-clickable-content span {
+    margin: 0.3rem;
+}
+
+@media screen and (max-width: 500px) {
+    .posts-area {
+        width: 100%;
+    }
+
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .post-company-logo {
+        width: 32px;
+        height: 32px;
+    }
+
+    .post-clickable-content {
+        flex-direction: column;
+    }
 }

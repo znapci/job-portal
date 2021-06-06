@@ -10,22 +10,25 @@ const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) =>
         <div className='post' >
             { id !== null ? 
                 <>
-                    <img src={imgUrl} height='20px' width='20px' alt='company logo' />
-                    <div className='post-company-field' >
-                        {company}
+                    <div className='post-header'>
+                        <img src={imgUrl} className='post-company-logo' height='20px' width='20px' alt='company logo' />
+                        <div className='header-titles'>
+                            <div className='post-company-field' >
+                                {company}
+                            </div>
+                            <div className='post-title-field'  >
+                                {title}
+                            </div>
+                        </div>
                     </div>
                     <div className='post-clickable-content' onClick={() => {
                         history.push(url)
                     }}>
-                        <span className='post-title-field'  >
-                            {title}
-                        </span>
-                        <span className='post-startdate-field'>{startDate}</span>
-                        <span className='post-lastdate-field'> {applyByDate}</span>
-                        <span className='post-salary-field'> {salary}</span>  
+                        <span className='post-startdate-field'><strong>Start Date: </strong> {startDate}</span>
+                        <span className='post-salary-field'><strong>CTC: </strong> {salary}</span>  
+                        <span className='post-lastdate-field'><strong>Apply By: </strong> {applyByDate}</span>
                     </div>
-                </>
-                : 
+                </> : 
                 <>
                     <Skeleton circle={true} height='20px' width='20px' />
                     <Skeleton width='20%' /> 
