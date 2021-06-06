@@ -1,5 +1,7 @@
+import '../styles/ExpandedPost.css';
 import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+
 
 const ExpandedPost = ({ apiEndpoint }) => {
     const { id } = useParams();
@@ -14,7 +16,7 @@ const ExpandedPost = ({ apiEndpoint }) => {
             .catch(err => console.log(err));
     }, [url]);
 
-    return (<div className='post-expanded' onClick={() => history.goBack()}>
+    return (<div className='expanded-post' onClick={() => history.goBack()}>
         <h1>{String(post)}<br />Go back!</h1></div>);
 }
 

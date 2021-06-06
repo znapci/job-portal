@@ -1,3 +1,4 @@
+import '../styles/PostsArea.css';
 import { useEffect, useState } from "react";
 import Post from "./Post";
 

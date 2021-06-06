@@ -1,0 +1,10 @@
+.header{
+    position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+    top: 0;
+    width: 100vw;
+    height: 10vh;
+    z-index: 2;
+    background-color: rgb(58, 83, 68);
+}

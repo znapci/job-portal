@@ -1,3 +1,4 @@
+import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 
