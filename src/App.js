@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/App.css';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PostsArea from './components/PostsArea';
 import ExpandedPost from './components/ExpandedPost';
