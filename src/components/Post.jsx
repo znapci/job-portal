@@ -25,14 +25,14 @@ const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) =>
                         history.push(url)
                     }}>
                         <span className='post-startdate-field'><strong>Start Date: </strong> {startDate}</span>
-                        <span className='post-salary-field'><strong>CTC: </strong> {salary}</span>
                         <span className='post-lastdate-field'><strong>Apply By: </strong> {applyByDate}</span>
+                        <span className='post-salary-field'><strong>CTC: </strong> {salary}</span>
                     </div>
                 </> :
                 <>
                     <SkeletonCircle mr='2' display='inline-flex' height='64px' width='64px' />
                     <Skeleton display='inline-flex' mt='6px' mb='6px' justifySelf='center' height='52px' width='16vw' />
-                    <Skeleton height='14vh' />
+                    <Skeleton height='33%' />
 
                 </>
             }
