@@ -18,11 +18,11 @@
     cursor: pointer;
 }
 .post-company-field {
-    font-size: 1.5rem;
+    font-size: 130%;
 }
 
 .post-title-field {
-    font-size: 1.2rem;
+    font-size: 100%;
     font-weight: 500;
     color: gray;
 }
@@ -35,14 +35,15 @@
 }
 
 .post-company-logo {
-    margin-right: 0.2rem;
-    width:64px;
-    height:64px
+    margin-right: 0.3rem;
+    height: 3rem;
+    width: 3rem;
 }
 
 .post-clickable-content {
     display: flex;
     justify-content: space-between;
+    text-align: center;
 }
 
 .post-clickable-content strong {
@@ -50,25 +51,20 @@
 }
 
 .post-clickable-content span {
+    width: 100%;
+    font-size: 100%;
     margin: 0.3rem;
 }
 
-@media screen and (max-width: 500px) {
-    .posts-area {
-        width: 100%;
-    }
-
-    .post-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+@media screen and (max-width: 576px) {
 
     .post-company-logo {
-        width: 32px;
-        height: 32px;
+        width: 2rem;
+        height: 2rem;
     }
 
     .post-clickable-content {
         flex-direction: column;
+        text-align: start;
     }
 }
