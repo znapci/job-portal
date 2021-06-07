@@ -2,11 +2,11 @@
     padding: 2% 10% 5%;
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     background-color: rgb(255, 255, 255);
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 700px) {
     .posts-area {
         width: 100%;
         padding: 2%;
