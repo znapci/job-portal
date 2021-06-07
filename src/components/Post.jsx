@@ -1,6 +1,6 @@
 import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
-import Skeleton from 'react-loading-skeleton';
+import { Skeleton, SkeletonCircle } from "@chakra-ui/react"
 
 const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) => {
     const history = useHistory();
@@ -8,10 +8,10 @@ const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) =>
     return (
 
         <div className='post' >
-            { id !== null ? 
+            { id !== null ?
                 <>
                     <div className='post-header'>
-                        <img src={imgUrl} className='post-company-logo' height='20px' width='20px' alt='company logo' />
+                        <img src={imgUrl} className='post-company-logo' alt='company logo' />
                         <div className='header-titles'>
                             <div className='post-company-field' >
                                 {company}
@@ -25,15 +25,15 @@ const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) =>
                         history.push(url)
                     }}>
                         <span className='post-startdate-field'><strong>Start Date: </strong> {startDate}</span>
-                        <span className='post-salary-field'><strong>CTC: </strong> {salary}</span>  
+                        <span className='post-salary-field'><strong>CTC: </strong> {salary}</span>
                         <span className='post-lastdate-field'><strong>Apply By: </strong> {applyByDate}</span>
                     </div>
-                </> : 
+                </> :
                 <>
-                    <Skeleton circle={true} height='20px' width='20px' />
-                    <Skeleton width='20%' /> 
-                    <Skeleton width='20%' />
-                    <Skeleton height='15vh' />
+                    <SkeletonCircle mr='2' display='inline-flex' height='64px' width='64px' />
+                    <Skeleton display='inline-flex' mt='6px' mb='6px' justifySelf='center' height='52px' width='16vw' />
+                    <Skeleton height='14vh' />
+
                 </>
             }
         </div>
