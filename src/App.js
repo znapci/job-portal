@@ -21,7 +21,7 @@ const App = () => {
                         <AddPost apiEndpoint='http://localhost:8000/addpost'></AddPost>
                     </Route> */}
                     <Route path='/login'>
-                        <LoginScreen></LoginScreen>
+                        <LoginScreen apiEndpoint='http://localhost:8000/login/'></LoginScreen>
                     </Route>
                     <Route path='/'>
                         <Redirect to='/posts'></Redirect>
