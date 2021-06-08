@@ -1,6 +1,7 @@
 import '../styles/PostsArea.css';
 import { useEffect, useState } from "react";
 import Post from "./Post";
+import { Container } from '@chakra-ui/layout';
 
 const PostsArea = ({ apiEndpoint }) => {
     const [state, setState] = useState(Array(5).fill(null));
@@ -21,12 +22,12 @@ const PostsArea = ({ apiEndpoint }) => {
 
     }, [url]);
     state.map((post, index) =>
-        posts.push(<Post key={index} id={post ? post.id : null} title={post ? post.title : null} company={post ? post.company : null} imgUrl={post ? post.imgUrl : null} salary={post ? post.salary : null} startDate={post ? post.startDate : null} applyByDate={post ? post.applyByDate : null} />));
+        posts.push(<Post key={index} id={post ? post.id : null} title={post ? post.title : null} company={post ? post.company : null} imgUrl={post ? post.imgUrl : null} salary={post ? post.salary : null} joinByDate={post ? post.joinByDate : null} companyUrl={post ? post.companyUrl : null} applyByDate={post ? post.applyByDate : null} tags={post ? post.tags : null} />));
 
     return (
-        <div className='posts-area'>
+        <Container centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
             {posts}
-        </div>
+        </Container>
     )
 }
 
