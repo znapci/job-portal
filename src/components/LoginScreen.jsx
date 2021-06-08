@@ -23,6 +23,22 @@ const LoginScreen = ({ apiEndpoint }) => {
         content: '',
         validationMessage: ''
     });
+    const [remember, setRemember] = useState(true);
+
+    const handleSubmit = () => {
+        if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
+            fetch(url, {
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST', body: JSON.stringify({
+                    email: email.content,
+                    password: password.content,
+                    remember: remember
+                })
+            }).then(res => res.json().then(jsonData => console.log(jsonData))).catch(err => console.log(err));
+        }
+    }
 
     return (
         <Box bgColor='white' borderRadius='10' p='10' textAlign=' left'>
@@ -51,25 +67,17 @@ const LoginScreen = ({ apiEndpoint }) => {
 
             <HStack justifyContent='space-between' mt={4}>
                 <Box>
-                    <Checkbox>Remember Me</Checkbox>
+                    <Checkbox isChecked={remember} onChange={(e) => {
+                        setRemember(e.target.checked);
+                    }}>Remember Me</Checkbox>
                 </Box>
                 <Box>
-                    <Link>Forgot your password?</Link>
+                    <Link>Forgot password?</Link>
                 </Box>
             </HStack>
 
-            <Button leftIcon={<UnlockIcon />} onClick={() => {
-                fetch(url, {
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    method: 'POST', body: JSON.stringify({
-                        email: email.content,
-                        password: password.content
-                    })
-                }).then(res => res.json().then(jsonData => console.log(jsonData))).catch(err => console.log(err));
-            }} variant='solid' width='full' mt={4}>Sign In</Button>
-        </Box>
+            <Button leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
+        </Box >
     )
 }
 
