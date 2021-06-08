@@ -1,6 +1,6 @@
 import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
-import { Skeleton, Box, Heading, Text, Tag, TagLabel, Avatar, Tab } from '@chakra-ui/react';
+import { Skeleton, Box, Heading, Text, Tag, TagLabel, Avatar, Tab, HStack, VStack, SkeletonCircle, Badge } from '@chakra-ui/react';
 
 
 const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) => {
@@ -8,13 +8,16 @@ const Post = ({ id, title, company, imgUrl, startDate, applyByDate, salary }) =>
     const url = '/post/' + id;
 
     return (
-        <Box p='2' m='2' minW='80%' minH='30%' bg='tomato'>
-            <Heading alignSelf='flex-start' size='md'>{title}</Heading>
-            <Tag colorScheme='blackAlpha' size='sm' borderRadius='full'>
-                <Avatar src={imgUrl} />
-                <TagLabel fontWeight='bold'> {company}</TagLabel>
-            </Tag>
-        </Box>
+        <Skeleton isLoaded={id !== null} boxShadow='xl' borderRadius='lg' minW='60%' p='4' m='4' minH='40'>
+            <Box bg='white'>
+                <Tag p='-2' bgColor='transparent' borderRadius='full'>
+                    <Avatar src={imgUrl} />
+                    <TagLabel fontWeight='bold'> {company}</TagLabel>
+                </Tag>
+                <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
+                <HStack py='2' justifyContent='space-evenly'><Badge borderRadius='full'>Join By: {startDate}</Badge><Badge borderRadius='full'>Apply By: {applyByDate}</Badge><Badge borderRadius='full'>Salary: {salary}</Badge></HStack>
+            </Box>
+        </Skeleton>
     );
     // return (
 
