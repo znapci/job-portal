@@ -11,7 +11,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     //     tags.map(tag =>
     //         badges.push(<Badge bg='bisque' borderRadius='full'>{tag}</Badge>))
     return (
-        <Skeleton bg='linkedin.100' isLoaded={id !== null} boxShadow='xl' borderRadius='lg' minW='60%' p='4' m='4' minH='40'>
+        <Skeleton bg='linkedin.100' isLoaded={id !== null} boxShadow='xl' borderRadius='lg' minW='60%' p='4' m='4' minH='52'>
             <Box >
                 <Tag cursor='pointer' onClick={() => history.push(companyUrl)} p='-2' bgColor='transparent' borderRadius='full'>
                     <Avatar src={imgUrl} />
@@ -19,9 +19,9 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                 </Tag><Box cursor='pointer' onClick={() => history.push(url)}>
                     <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
                     <HStack py='2' >
-                        <VStack flexBasis='0' flexGrow='1'><Text ><CalendarIcon /> Apply By</Text><Text>{applyByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><Text ><CheckIcon />Join By</Text><Text>{joinByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><Text ><HamburgerIcon /> Salary</Text><Text>{salary}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><CalendarIcon /><Text > Apply By</Text><Text>{applyByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><CheckIcon /><Text >Join By</Text><Text>{joinByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><HamburgerIcon /><Text > Salary</Text><Text>{salary}</Text></VStack>
                     </HStack>
                 </Box>
                 {/* <Tag p='2' colorScheme='twitter' borderRadius='lg' variant='solid'>
