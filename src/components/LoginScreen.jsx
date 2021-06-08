@@ -9,67 +9,76 @@ import {
     Checkbox,
     Button,
     FormErrorMessage,
-    FormHelperText,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../styles/LoginScreen.css';
 
-const LoginScreen = () => {
+const LoginScreen = ({ apiEndpoint }) => {
+    const url = apiEndpoint;
     const [email, setEmail] = useState({
         content: '',
-        validity: null,
         validationMessage: ''
     });
     const [password, setPassword] = useState({
         content: '',
-        validity: null,
         validationMessage: ''
     });
-    useEffect(() => {
-        console.log(email);
-    })
+    const [remember, setRemember] = useState(true);
+
+    const handleSubmit = () => {
+        if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
+            fetch(url, {
+                headers: {
+                    'content-type': 'application/json'
+                },
+                method: 'POST', body: JSON.stringify({
+                    email: email.content,
+                    password: password.content,
+                    remember: remember
+                })
+            }).then(res => res.json().then(jsonData => console.log(jsonData))).catch(err => console.log(err));
+        }
+    }
+
     return (
-        <div className='loginscreen-container'>
-            <Box bgColor='white' borderRadius='10' p='10' textAlign=' left'>
-                <form>
-                    <FormControl isInvalid={email.validationMessage ? !email.validity.valid : false} isRequired>
-                        <FormLabel>Email</FormLabel>
-                        <Input type='email' placeholder='Enter your email address'
-                            onBlur={(e) => {
-                                setEmail({
-                                    content: e.target.value,
-                                    validity: e.target.validity,
-                                    validationMessage: e.target.validationMessage
-                                });
-                            }} />
-                        <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
-                    </FormControl>
+        <Box bgColor='white' borderRadius='10' p='10' textAlign=' left'>
+            <FormControl isInvalid={email.validationMessage} isRequired>
+                <FormLabel>Email</FormLabel>
+                <Input type='email' placeholder='Enter your email address'
+                    onBlur={(e) => {
+                        setEmail({
+                            content: e.target.value,
+                            validationMessage: e.target.validationMessage
+                        });
+                    }} />
+                <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
+            </FormControl>
 
-                    <FormControl isInvalid={password.validationMessage ? !password.validity.valid : false} isRequired mt={4}>
-                        <FormLabel>Password</FormLabel>
-                        <Input type='password' placeholder='Enter your password' maxLength={64} onBlur={(e) => {
-                            setPassword({
-                                content: e.target.value,
-                                validity: e.target.validity,
-                                validationMessage: e.target.validationMessage
-                            });
-                        }} />
-                        <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
-                    </FormControl>
+            <FormControl isInvalid={password.validationMessage} isRequired mt={4}>
+                <FormLabel>Password</FormLabel>
+                <Input type='password' placeholder='Enter your password' maxLength={64} onBlur={(e) => {
+                    setPassword({
+                        content: e.target.value,
+                        validationMessage: e.target.validationMessage
+                    });
+                }} />
+                <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
+            </FormControl>
 
-                    <HStack justifyContent='space-between' mt={4}>
-                        <Box>
-                            <Checkbox>Remember Me</Checkbox>
-                        </Box>
-                        <Box>
-                            <Link>Forgot your password?</Link>
-                        </Box>
-                    </HStack>
+            <HStack justifyContent='space-between' mt={4}>
+                <Box>
+                    <Checkbox isChecked={remember} onChange={(e) => {
+                        setRemember(e.target.checked);
+                    }}>Remember Me</Checkbox>
+                </Box>
+                <Box>
+                    <Link>Forgot password?</Link>
+                </Box>
+            </HStack>
 
-                    <Button leftIcon={<UnlockIcon />} variant='solid' width='full' mt={4}>Sign In</Button>
-                </form>
-            </Box>
-        </div >)
+            <Button leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
+        </Box >
+    )
 }
 
 export default LoginScreen;
