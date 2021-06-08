@@ -60,6 +60,9 @@ const LoginScreen = ({ apiEndpoint }) => {
 
             <Button leftIcon={<UnlockIcon />} onClick={() => {
                 fetch(url, {
+                    headers: {
+                        'content-type': 'application/json'
+                    },
                     method: 'POST', body: JSON.stringify({
                         email: email.content,
                         password: password.content
