@@ -10,10 +10,11 @@ import {
     Button,
     FormErrorMessage,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import '../styles/LoginScreen.css';
 
-const LoginScreen = ({ apiEndpoint }) => {
+const LoginScreen = ({ apiEndpoint, getToken }) => {
     const url = apiEndpoint;
     const [email, setEmail] = useState({
         content: '',
@@ -24,6 +25,10 @@ const LoginScreen = ({ apiEndpoint }) => {
         validationMessage: ''
     });
     const [remember, setRemember] = useState(true);
+    const [recievedResponse, setRecievedResponse] = useState(null);
+    useEffect(() => {
+        getToken(recievedResponse);
+    }, [getToken, recievedResponse])
 
     const handleSubmit = () => {
         if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
@@ -36,7 +41,7 @@ const LoginScreen = ({ apiEndpoint }) => {
                     password: password.content,
                     remember: remember
                 })
-            }).then(res => res.json().then(jsonData => console.log(jsonData))).catch(err => console.log(err));
+            }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => console.log(err));
         }
     }
 
@@ -44,7 +49,7 @@ const LoginScreen = ({ apiEndpoint }) => {
         <Box bgColor='white' borderRadius='10' p='10' textAlign=' left'>
             <FormControl isInvalid={email.validationMessage} isRequired>
                 <FormLabel>Email</FormLabel>
-                <Input type='email' placeholder='Enter your email address'
+                <Input autoFocus type='email' placeholder='Enter your email address'
                     onBlur={(e) => {
                         setEmail({
                             content: e.target.value,
