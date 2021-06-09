@@ -81,7 +81,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                     onChange={(e) => {
                         setEmail({
                             content: e.target.value,
-                            validationMessage: ''
+                            validationMessage: email.alidationMessage
                         });
                     }} onBlur={(e) => {
                         setEmail({
@@ -102,7 +102,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                 }} onChange={(e) => {
                     setPassword({
                         content: e.target.value,
-                        validationMessage: ''
+                        validationMessage: password.validationMessage
                     });
                 }} />
                 <FormErrorMessage>{password.validationMessage}</FormErrorMessage>

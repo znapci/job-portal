@@ -36,7 +36,7 @@ const App = () => {
                         <LoginScreen apiEndpoint='http://localhost:8000/login/' getToken={getToken}></LoginScreen>
                     </Route>
                     <Route path='/'>
-                        <Redirect to='/posts'></Redirect>
+                        <Redirect to='/login'></Redirect>
                     </Route>
 
                 </Switch>
