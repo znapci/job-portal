@@ -1,7 +1,7 @@
 import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
-import { Text, Skeleton, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack } from '@chakra-ui/react';
-import { CalendarIcon, CheckIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { Text, Skeleton, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon } from '@chakra-ui/react';
+import { AiOutlineCalendar, AiOutlineMoneyCollect, AiOutlineCheckSquare } from 'react-icons/ai';
 
 const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags }) => {
     const history = useHistory();
@@ -11,20 +11,29 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     //     tags.map(tag =>
     //         badges.push(<Badge bg='bisque' borderRadius='full'>{tag}</Badge>))
     return (
-        <Skeleton bg='linkedin.100' isLoaded={id !== null} boxShadow='xl' borderRadius='lg' minW='60%' p='4' m='4' minH='52'>
-            <Box >
-                <Tag cursor='pointer' onClick={() => history.push(companyUrl)} p='-2' bgColor='transparent' borderRadius='full'>
+
+        <Flex flexDir='column' justify='space-evenly' bg='linkedin.100' boxShadow='xl' borderRadius='lg' minW='60%' p='4' m='4' minH='56'>
+            <Skeleton isLoaded={id !== null} minW='26%' maxW='46%' borderRadius='full'>
+                <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent' >
                     <Avatar src={imgUrl} />
                     <TagLabel fontWeight='bold'> {company}</TagLabel>
-                </Tag><Box cursor='pointer' onClick={() => history.push(url)}>
+                </Tag>
+
+            </Skeleton>
+            <Skeleton borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
+                <Box cursor='pointer' onClick={() => history.push(url)}>
                     <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
-                    <HStack py='2' >
-                        <VStack flexBasis='0' flexGrow='1'><CalendarIcon /><Text > Apply By</Text><Text>{applyByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><CheckIcon /><Text >Join By</Text><Text>{joinByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><HamburgerIcon /><Text > Salary</Text><Text>{salary}</Text></VStack>
+                    <HStack py='2'>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineCalendar} /><Text > Apply By</Text></VStack></Badge>
+                            <Text align='center'>{applyByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineCheckSquare} /><Text > Join By</Text></VStack></Badge>
+                            <Text align='center'>{joinByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineMoneyCollect} /><Text > Salary</Text></VStack></Badge>
+                            <Text align='center'>{salary}</Text></VStack>
                     </HStack>
                 </Box>
-                {/* <Tag p='2' colorScheme='twitter' borderRadius='lg' variant='solid'>
+            </Skeleton>
+            {/* <Tag p='2' colorScheme='twitter' borderRadius='lg' variant='solid'>
                     <CalendarIcon />
                     <TagLabel>Join By: {startDate}</TagLabel></Tag>
                 <Tag p='2' colorScheme='gray' borderRadius='lg' variant='solid'>
@@ -34,10 +43,10 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                     <HamburgerIcon />
                     <TagLabel >Salary: {salary}</TagLabel>
                 </Tag> */}
-                <HStack justifyContent='space-around'>
-                </HStack>
-            </Box>
-        </Skeleton>
+            <HStack justifyContent='space-around'>
+            </HStack>
+        </Flex>
+
     );
     // return (
 
