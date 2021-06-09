@@ -8,10 +8,11 @@ import LoginScreen from './components/LoginScreen';
 const App = () => {
     return (
         <BrowserRouter>
-            <Header></Header>
+
             <div className='container' >
                 <Switch>
                     <Route exact path='/posts'>
+                        <Header></Header>
                         <PostsArea apiEndpoint='http://localhost:8000/posts' />
                     </Route>
                     <Route path='/post/:id'>
