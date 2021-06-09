@@ -16,7 +16,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
             <Skeleton isLoaded={id !== null} minW='26%' maxW='46%' borderRadius='full'>
                 <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent' >
                     <Avatar src={imgUrl} />
-                    <TagLabel fontWeight='bold'> {company}</TagLabel>
+                    <TagLabel pl='1' fontWeight='bold'> {company}</TagLabel>
                 </Tag>
 
             </Skeleton>
