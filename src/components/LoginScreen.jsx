@@ -72,7 +72,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
         }
     }
     return (
-        <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' minW='sm' minH='md' p='5' textAlign='left'>
+        <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' w='sm' minH='md' p='5' textAlign='left'>
             <Heading>Welcome back!</Heading>
             <Text p='1'>Sign-in to continue</Text>
             <FormControl isInvalid={email.validationMessage} my='2' isRequired>
