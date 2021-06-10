@@ -36,6 +36,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
     });
     const toast = useToast();
     useEffect(() => {
+        toast.closeAll();
         if (recievedResponse.status === 'success') {
             toast({
                 title: 'Login Successful',
@@ -57,12 +58,13 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
         }
     }, [toast, history, getToken, recievedResponse])
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
+            e.target.disabled = 1;
             toast({
                 title: 'Logging you in...',
                 status: 'info',
-                duration: 1000
+                onCloseComplete: () => e.target.disabled = 0
             });
             fetch(url, {
                 headers: {
