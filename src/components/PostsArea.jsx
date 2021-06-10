@@ -17,7 +17,6 @@ const PostsArea = ({ apiEndpoint }) => {
         tags: null
     }));
     const url = apiEndpoint;
-    const posts = [];
 
     useEffect(() => {
         fetch(url, {
@@ -32,8 +31,8 @@ const PostsArea = ({ apiEndpoint }) => {
             });
 
     }, [url]);
-    state.map((post, index) =>
-        posts.push(<Post key={index} id={post.id} title={post.title} company={post.company} imgUrl={post.imgUrl} salary={post.salary} joinByDate={post.joinByDate} companyUrl={post.companyUrl} applyByDate={post.applyByDate} tags={post.tags} place={post.place} />));
+    const posts = state.map((post, index) =>
+        <Post key={index} id={post.id} title={post.title} company={post.company} imgUrl={post.imgUrl} salary={post.salary} joinByDate={post.joinByDate} companyUrl={post.companyUrl} applyByDate={post.applyByDate} tags={post.tags} place={post.place} />);
 
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
