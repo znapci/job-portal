@@ -1,6 +1,6 @@
 import { UnlockIcon } from '@chakra-ui/icons';
 import {
-    Box,
+    Flex,
     Link,
     FormControl,
     FormLabel,
@@ -9,12 +9,18 @@ import {
     Checkbox,
     Button,
     FormErrorMessage,
+    Heading,
+    Text,
+    useToast
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import '../styles/LoginScreen.css';
+import { useHistory } from 'react-router-dom';
 
-const LoginScreen = ({ apiEndpoint }) => {
+const LoginScreen = ({ apiEndpoint, getToken }) => {
     const url = apiEndpoint;
+    let history = useHistory();
     const [email, setEmail] = useState({
         content: '',
         validationMessage: ''
@@ -24,6 +30,32 @@ const LoginScreen = ({ apiEndpoint }) => {
         validationMessage: ''
     });
     const [remember, setRemember] = useState(true);
+    const [recievedResponse, setRecievedResponse] = useState({
+        token: 'placeholder',
+        status: undefined
+    });
+    const toast = useToast();
+    useEffect(() => {
+        if (recievedResponse.status === 'success') {
+            toast({
+                title: 'Login Successful',
+                description: "You will be redirected to posts shortly",
+                status: "success",
+                duration: 2000,
+                onCloseComplete: () => history.push('/posts')
+            });
+            getToken(recievedResponse.token);
+        }
+        else if (recievedResponse.status === 'failure') {
+            toast({
+                title: 'Invalid username or password',
+                description: 'Did you type your credentials properly?',
+                status: 'error',
+                duration: 2000,
+                isClosable: true,
+            })
+        }
+    }, [toast, history, getToken, recievedResponse])
 
     const handleSubmit = () => {
         if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
@@ -36,16 +68,22 @@ const LoginScreen = ({ apiEndpoint }) => {
                     password: password.content,
                     remember: remember
                 })
-            }).then(res => res.json().then(jsonData => console.log(jsonData))).catch(err => console.log(err));
+            }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => console.log(err));
         }
     }
-
     return (
-        <Box bgColor='white' borderRadius='10' p='10' textAlign=' left'>
-            <FormControl isInvalid={email.validationMessage} isRequired>
+        <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' minW='sm' minH='md' p='5' textAlign='left'>
+            <Heading>Welcome back!</Heading>
+            <Text p='1'>Sign-in to continue</Text>
+            <FormControl isInvalid={email.validationMessage} my='2' isRequired>
                 <FormLabel>Email</FormLabel>
-                <Input type='email' placeholder='Enter your email address'
-                    onBlur={(e) => {
+                <Input autoFocus type='email' placeholder='Enter your email address'
+                    onChange={(e) => {
+                        setEmail({
+                            content: e.target.value,
+                            validationMessage: email.alidationMessage
+                        });
+                    }} onBlur={(e) => {
                         setEmail({
                             content: e.target.value,
                             validationMessage: e.target.validationMessage
@@ -54,30 +92,31 @@ const LoginScreen = ({ apiEndpoint }) => {
                 <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
             </FormControl>
 
-            <FormControl isInvalid={password.validationMessage} isRequired mt={4}>
+            <FormControl isInvalid={password.validationMessage} isRequired my='2'>
                 <FormLabel>Password</FormLabel>
                 <Input type='password' placeholder='Enter your password' maxLength={64} onBlur={(e) => {
                     setPassword({
                         content: e.target.value,
                         validationMessage: e.target.validationMessage
                     });
+                }} onChange={(e) => {
+                    setPassword({
+                        content: e.target.value,
+                        validationMessage: password.validationMessage
+                    });
                 }} />
                 <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
             </FormControl>
 
-            <HStack justifyContent='space-between' mt={4}>
-                <Box>
-                    <Checkbox isChecked={remember} onChange={(e) => {
-                        setRemember(e.target.checked);
-                    }}>Remember Me</Checkbox>
-                </Box>
-                <Box>
-                    <Link>Forgot password?</Link>
-                </Box>
+            <HStack justifyContent='space-between' my='4'>
+                <Checkbox colorScheme='linkedin' isChecked={remember} onChange={(e) => {
+                    setRemember(e.target.checked);
+                }}>Remember Me</Checkbox>
+                <Link href='#'>Forgot password?</Link>
             </HStack>
 
-            <Button leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
-        </Box >
+            <Button colorScheme='linkedin' leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
+        </Flex >
     )
 }
 
