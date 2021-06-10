@@ -39,9 +39,9 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
         if (recievedResponse.status === 'success') {
             toast({
                 title: 'Login Successful',
-                description: "You will be redirected to posts shortly",
-                status: "success",
-                duration: 2000,
+                description: 'You will be redirected to posts shortly',
+                status: 'success',
+                duration: 1200,
                 onCloseComplete: () => history.push('/posts')
             });
             getToken(recievedResponse.token);
@@ -59,6 +59,11 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
 
     const handleSubmit = () => {
         if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
+            toast({
+                title: 'Logging you in...',
+                status: 'info',
+                duration: 1000
+            });
             fetch(url, {
                 headers: {
                     'content-type': 'application/json'
