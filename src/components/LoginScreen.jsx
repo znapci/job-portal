@@ -13,9 +13,7 @@ import {
     Text,
     useToast
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import '../styles/LoginScreen.css';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const LoginScreen = ({ apiEndpoint, getToken }) => {

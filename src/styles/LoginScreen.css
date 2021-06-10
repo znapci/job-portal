@@ -1,9 +1,0 @@
-.loginscreen-container{
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-}
-.login-prompt{
-    height: 60vh;
-}

@@ -1,4 +1,3 @@
-import '../styles/ExpandedPost.css';
 import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 

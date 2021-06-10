@@ -1,4 +1,3 @@
-import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
 import { Text, Skeleton, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon } from '@chakra-ui/react';
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
@@ -12,15 +11,15 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     //         badges.push(<Badge bg='bisque' borderRadius='full'>{tag}</Badge>))
     return (
 
-        <Flex flexDir='column' justify='space-evenly' bg='linen' boxShadow='lg' borderRadius='lg' minW='60%' p='4' m='4' minH='56'>
-            <Skeleton startColor='#c28078' endColor='#ffe5dd' isLoaded={id !== null} minW='26%' maxW='46%' borderRadius='full'>
+        <Flex flexDir='column' justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' p='4' m='4' minH='56'>
+            <Skeleton isLoaded={id !== null} minW='26%' maxW='46%' borderRadius='full'>
                 <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent' >
                     <Avatar src={imgUrl} />
                     <TagLabel pl='1' fontWeight='bold'> {company}</TagLabel>
                 </Tag>
 
             </Skeleton>
-            <Skeleton startColor='#c28078' endColor='#ffe5dd' borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
+            <Skeleton borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
                 <Box cursor='pointer' onClick={() => history.push(url)}>
                     <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
                     <HStack align='flex-start' py='2'>
