@@ -4,7 +4,18 @@ import Post from "./Post";
 import { Container } from '@chakra-ui/layout';
 
 const PostsArea = ({ apiEndpoint }) => {
-    const [state, setState] = useState(Array(5).fill(null));
+    const [state, setState] = useState(Array(5).fill({
+        id: null,
+        title: null,
+        company: null,
+        imgUrl: null,
+        companyUrl: null,
+        applyByDate: null,
+        joinByDate: null,
+        place: null,
+        salary: null,
+        tags: null
+    }));
     const url = apiEndpoint;
     const posts = [];
 
@@ -22,7 +33,7 @@ const PostsArea = ({ apiEndpoint }) => {
 
     }, [url]);
     state.map((post, index) =>
-        posts.push(<Post key={index} id={post ? post.id : null} title={post ? post.title : null} company={post ? post.company : null} imgUrl={post ? post.imgUrl : null} salary={post ? post.salary : null} joinByDate={post ? post.joinByDate : null} companyUrl={post ? post.companyUrl : null} applyByDate={post ? post.applyByDate : null} tags={post ? post.tags : null} />));
+        posts.push(<Post key={index} id={post.id} title={post.title} company={post.company} imgUrl={post.imgUrl} salary={post.salary} joinByDate={post.joinByDate} companyUrl={post.companyUrl} applyByDate={post.applyByDate} tags={post.tags} place={post.place} />));
 
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>

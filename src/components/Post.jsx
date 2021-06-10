@@ -1,9 +1,9 @@
 import '../styles/Post.css';
 import { useHistory } from 'react-router-dom';
 import { Text, Skeleton, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon } from '@chakra-ui/react';
-import { AiOutlineCalendar, AiOutlineMoneyCollect, AiOutlineCheckSquare } from 'react-icons/ai';
+import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
 
-const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags }) => {
+const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place }) => {
     const history = useHistory();
     const url = '/post/' + id;
     //    const badges = [];
@@ -23,13 +23,15 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
             <Skeleton startColor='#c28078' endColor='#ffe5dd' borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
                 <Box cursor='pointer' onClick={() => history.push(url)}>
                     <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
-                    <HStack py='2'>
-                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineCalendar} /><Text > Apply By</Text></VStack></Badge>
-                            <Text align='center'>{applyByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineCheckSquare} /><Text > Join By</Text></VStack></Badge>
-                            <Text align='center'>{joinByDate}</Text></VStack>
-                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={AiOutlineMoneyCollect} /><Text > Salary</Text></VStack></Badge>
-                            <Text align='center'>{salary}</Text></VStack>
+                    <HStack align='flex-start' py='2'>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoCalendar} /><Text > Apply By</Text></VStack></Badge>
+                            <Text align='center' fontSize='sm'>{applyByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoMailRead} /><Text > Join By</Text></VStack></Badge>
+                            <Text align='center' fontSize='sm'>{joinByDate}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoRuby} /><Text > Salary</Text></VStack></Badge>
+                            <Text align='center' fontSize='sm'>{salary}</Text></VStack>
+                        <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoLocation} /><Text > Location</Text></VStack></Badge>
+                            <Text align='center' fontSize='sm'>{place}</Text></VStack>
                     </HStack>
                 </Box>
             </Skeleton>
