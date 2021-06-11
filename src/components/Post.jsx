@@ -12,9 +12,8 @@ import {
 } from "@chakra-ui/react"
 import { Text, Skeleton, Button, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon, useDisclosure } from '@chakra-ui/react';
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
-import { LoremIpsum } from 'react-lorem-ipsum';
 
-const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place }) => {
+const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, responsibilities, requirements, description }) => {
     const history = useHistory();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -23,6 +22,9 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     // if (tags)
     //     tags.map(tag =>
     //         badges.push(<Badge bg='bisque' borderRadius='full'>{tag}</Badge>))
+
+    const modalReqs = requirements ? requirements.map((req, index) => <ListItem key={index}>{req}</ListItem>) : null;
+    const modalRes = responsibilities ? responsibilities.map((res, index) => <ListItem key={index}>{res}</ListItem>) : null;
     return (
 
         <Flex flexDir='column' justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' p='4' m='4' minH='56'>
@@ -41,43 +43,24 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                             <ModalHeader>{title}</ModalHeader>
                             <ModalCloseButton />
                             <ModalBody>
-
-                                Requirements:
+                                <Heading size='md'>
+                                    Requirements:
+                                </Heading>
                                 <UnorderedList>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
-                                    <ListItem>
-                                        something else
-                                    </ListItem>
-                                    <ListItem>
-                                        another something else
-                                    </ListItem>
-                                    <ListItem>
-                                        what not
-                                    </ListItem>
+                                    {modalReqs}
                                 </UnorderedList>
                                 <br></br>
-                                Responsibilities: <UnorderedList>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
-                                    <ListItem>
-                                        something
-                                    </ListItem>
+                                <Heading size='md'>
+                                    Responsibilities:
+                                </Heading>
+                                <UnorderedList>
+                                    {modalRes}
                                 </UnorderedList>
                                 <br></br>
-                                Description:
-                                <LoremIpsum p={3} />
+                                <Heading size='md'>
+                                    Description:
+                                </Heading>
+                                <Text>{description}</Text>
                             </ModalBody>
                             <ModalFooter justifyContent='space-between'>
                                 <Text>Offered by: {company}</Text>

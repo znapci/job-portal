@@ -13,7 +13,10 @@ const PostsArea = ({ apiEndpoint }) => {
         joinByDate: null,
         place: null,
         salary: null,
-        tags: null
+        tags: null,
+        responsibilities: null,
+        requirements: null,
+        description: null
     }));
     const url = apiEndpoint;
 
@@ -31,7 +34,12 @@ const PostsArea = ({ apiEndpoint }) => {
 
     }, [url]);
     const posts = state.map((post, index) =>
-        <Post key={index} id={post.id} title={post.title} company={post.company} imgUrl={post.imgUrl} salary={post.salary} joinByDate={post.joinByDate} companyUrl={post.companyUrl} applyByDate={post.applyByDate} tags={post.tags} place={post.place} />);
+        <Post key={index} id={post.id} title={post.title}
+            company={post.company} imgUrl={post.imgUrl} salary={post.salary}
+            joinByDate={post.joinByDate} companyUrl={post.companyUrl}
+            applyByDate={post.applyByDate} tags={post.tags} place={post.place}
+            responsibilities={post.responsibilities}
+            requirements={post.requirements} description={post.description} />);
 
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
