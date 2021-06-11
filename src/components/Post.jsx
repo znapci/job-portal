@@ -1,9 +1,23 @@
 import { useHistory } from 'react-router-dom';
-import { Text, Skeleton, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon } from '@chakra-ui/react';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    UnorderedList,
+    ListItem,
+} from "@chakra-ui/react"
+import { Text, Skeleton, Button, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon, useDisclosure } from '@chakra-ui/react';
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
+import { LoremIpsum } from 'react-lorem-ipsum';
 
 const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place }) => {
     const history = useHistory();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const url = '/post/' + id;
     //    const badges = [];
     // if (tags)
@@ -20,7 +34,57 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
 
             </Skeleton>
             <Skeleton borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
-                <Box cursor='pointer' onClick={() => history.push(url)}>
+                <Box cursor='pointer' onClick={onOpen}>
+                    <Modal motionPreset='slideInBottom' size='6xl' isOpen={isOpen} onClose={onClose}>
+                        <ModalOverlay />
+                        <ModalContent>
+                            <ModalHeader>{title}</ModalHeader>
+                            <ModalCloseButton />
+                            <ModalBody>
+
+                                Requirements:
+                                <UnorderedList>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                    <ListItem>
+                                        something else
+                                    </ListItem>
+                                    <ListItem>
+                                        another something else
+                                    </ListItem>
+                                    <ListItem>
+                                        what not
+                                    </ListItem>
+                                </UnorderedList>
+                                <br></br>
+                                Responsibilities: <UnorderedList>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                    <ListItem>
+                                        something
+                                    </ListItem>
+                                </UnorderedList>
+                                <br></br>
+                                Description:
+                                <LoremIpsum p={3} />
+                            </ModalBody>
+                            <ModalFooter justifyContent='space-between'>
+                                <Text>Offered by: {company}</Text>
+                                <Button onClick={() => history.push(url)} colorScheme='linkedin'>Apply</Button>
+                            </ModalFooter>
+                        </ModalContent>
+                    </Modal>
                     <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
                     <HStack align='flex-start' py='2'>
                         <VStack flexBasis='0' flexGrow='1'><Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoCalendar} /><Text > Apply By</Text></VStack></Badge>

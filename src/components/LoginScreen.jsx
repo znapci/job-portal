@@ -62,6 +62,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
             toast({
                 title: 'Logging you in...',
                 status: 'info',
+                duration: null,
                 onCloseComplete: () => e.target.disabled = 0
             });
             fetch(url, {
@@ -73,7 +74,14 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                     password: password.content,
                     remember: remember
                 })
-            }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => console.log(err));
+            }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => {
+                toast.closeAll();
+                toast({
+                    title: 'Something went wrong :(',
+                    description: `Sorry there's something wrong with the login connection... is your internet working fine?`,
+                    status: 'error'
+                })
+            });
         }
     }
     return (
@@ -120,7 +128,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                 <Link href='#'>Forgot password?</Link>
             </HStack>
 
-            <Button colorScheme='linkedin' leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
+            <Button type='submit' colorScheme='linkedin' leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
         </Flex >
     )
 }
