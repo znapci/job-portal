@@ -19,14 +19,10 @@ import { useHistory } from 'react-router-dom';
 const LoginScreen = ({ apiEndpoint, getToken }) => {
     const url = apiEndpoint;
     let history = useHistory();
-    const [email, setEmail] = useState({
-        content: '',
-        validationMessage: ''
-    });
-    const [password, setPassword] = useState({
-        content: '',
-        validationMessage: ''
-    });
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailvalidation, setEmailValidation] = useState('');
+    const [passwordValidation, setPasswordValidation] = useState('');
     const [remember, setRemember] = useState(true);
     const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
     const [recievedResponse, setRecievedResponse] = useState({
@@ -61,7 +57,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
+        if ((email && password && !emailvalidation && !passwordValidation)) {
             setSubmitButtonEnabled(false);
             toast({
                 title: 'Logging you in...',
@@ -73,8 +69,8 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                     'content-type': 'application/json'
                 },
                 method: 'POST', body: JSON.stringify({
-                    email: email.content,
-                    password: password.content,
+                    email: email,
+                    password: password,
                     remember: remember
                 })
             }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => {
@@ -94,37 +90,19 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
             <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' w='sm' minH='md' p='5' textAlign='left'>
                 <Heading>Welcome back!</Heading>
                 <Text p='1'>Sign-in to continue</Text>
-                <FormControl isInvalid={email.validationMessage} my='2' isRequired>
+                <FormControl isInvalid={emailvalidation} my='2' isRequired>
                     <FormLabel>Email</FormLabel>
-                    <Input autoFocus type='email' value={email.content} placeholder='Enter your email address'
-                        onChange={(e) => {
-                            setEmail({
-                                content: e.target.value,
-                                validationMessage: email.alidationMessage
-                            });
-                        }} onBlur={(e) => {
-                            setEmail({
-                                content: e.target.value,
-                                validationMessage: e.target.validationMessage
-                            });
-                        }} />
-                    <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
+                    <Input autoFocus type='email' value={email} placeholder='Enter your email address'
+                        onChange={e =>
+                            setEmail(e.target.value)} onBlur={e => setEmailValidation(e.target.validationMessage)} />
+                    <FormErrorMessage>{emailvalidation}</FormErrorMessage>
                 </FormControl>
 
-                <FormControl isInvalid={password.validationMessage} isRequired my='2'>
+                <FormControl isInvalid={passwordValidation} isRequired my='2'>
                     <FormLabel>Password</FormLabel>
-                    <Input type='password' value={password.content} placeholder='Enter your password' maxLength={64} onBlur={(e) => {
-                        setPassword({
-                            content: e.target.value,
-                            validationMessage: e.target.validationMessage
-                        });
-                    }} onChange={(e) => {
-                        setPassword({
-                            content: e.target.value,
-                            validationMessage: password.validationMessage
-                        });
-                    }} />
-                    <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
+                    <Input type='password' value={password} placeholder='Enter your password' maxLength={64}
+                        onChange={e => setPassword(e.target.value)} onBlur={e => setPasswordValidation(e.target.validationMessage)} />
+                    <FormErrorMessage>{passwordValidation}</FormErrorMessage>
                 </FormControl>
 
                 <HStack justifyContent='space-between' my='4'>
