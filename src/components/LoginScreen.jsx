@@ -90,7 +90,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
             <Text p='1'>Sign-in to continue</Text>
             <FormControl isInvalid={email.validationMessage} my='2' isRequired>
                 <FormLabel>Email</FormLabel>
-                <Input autoFocus type='email' placeholder='Enter your email address'
+                <Input autoFocus type='email' value={email.content} placeholder='Enter your email address'
                     onChange={(e) => {
                         setEmail({
                             content: e.target.value,
@@ -107,7 +107,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
 
             <FormControl isInvalid={password.validationMessage} isRequired my='2'>
                 <FormLabel>Password</FormLabel>
-                <Input type='password' placeholder='Enter your password' maxLength={64} onBlur={(e) => {
+                <Input type='password' value={password.content} placeholder='Enter your password' maxLength={64} onBlur={(e) => {
                     setPassword({
                         content: e.target.value,
                         validationMessage: e.target.validationMessage
