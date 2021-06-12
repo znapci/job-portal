@@ -28,6 +28,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
         validationMessage: ''
     });
     const [remember, setRemember] = useState(true);
+    const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
     const [recievedResponse, setRecievedResponse] = useState({
         token: 'placeholder',
         status: undefined
@@ -46,6 +47,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
             getToken(recievedResponse.token);
         }
         else if (recievedResponse.status === 'failure') {
+            setSubmitButtonEnabled(true);
             toast({
                 title: 'Invalid username or password',
                 description: 'Did you type your credentials properly?',
@@ -57,13 +59,14 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
     }, [toast, history, getToken, recievedResponse])
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if ((email.content && password.content && !email.validationMessage && !password.validationMessage)) {
-            e.target.disabled = 1;
+            setSubmitButtonEnabled(false);
             toast({
                 title: 'Logging you in...',
                 status: 'info',
                 duration: null,
-                onCloseComplete: () => e.target.disabled = 0
             });
             fetch(url, {
                 headers: {
@@ -76,60 +79,64 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                 })
             }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => {
                 toast.closeAll();
+                setSubmitButtonEnabled(true)
                 toast({
                     title: 'Something went wrong :(',
                     description: `Sorry there's something wrong with the login connection... is your internet working fine?`,
-                    status: 'error'
-                })
+                    status: 'error',
+                });
+                console.error(err);
             });
         }
     }
     return (
-        <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' w='sm' minH='md' p='5' textAlign='left'>
-            <Heading>Welcome back!</Heading>
-            <Text p='1'>Sign-in to continue</Text>
-            <FormControl isInvalid={email.validationMessage} my='2' isRequired>
-                <FormLabel>Email</FormLabel>
-                <Input autoFocus type='email' value={email.content} placeholder='Enter your email address'
-                    onChange={(e) => {
-                        setEmail({
-                            content: e.target.value,
-                            validationMessage: email.alidationMessage
-                        });
-                    }} onBlur={(e) => {
-                        setEmail({
+        <form onSubmit={handleSubmit}>
+            <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' w='sm' minH='md' p='5' textAlign='left'>
+                <Heading>Welcome back!</Heading>
+                <Text p='1'>Sign-in to continue</Text>
+                <FormControl isInvalid={email.validationMessage} my='2' isRequired>
+                    <FormLabel>Email</FormLabel>
+                    <Input autoFocus type='email' value={email.content} placeholder='Enter your email address'
+                        onChange={(e) => {
+                            setEmail({
+                                content: e.target.value,
+                                validationMessage: email.alidationMessage
+                            });
+                        }} onBlur={(e) => {
+                            setEmail({
+                                content: e.target.value,
+                                validationMessage: e.target.validationMessage
+                            });
+                        }} />
+                    <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
+                </FormControl>
+
+                <FormControl isInvalid={password.validationMessage} isRequired my='2'>
+                    <FormLabel>Password</FormLabel>
+                    <Input type='password' value={password.content} placeholder='Enter your password' maxLength={64} onBlur={(e) => {
+                        setPassword({
                             content: e.target.value,
                             validationMessage: e.target.validationMessage
                         });
+                    }} onChange={(e) => {
+                        setPassword({
+                            content: e.target.value,
+                            validationMessage: password.validationMessage
+                        });
                     }} />
-                <FormErrorMessage>{email.validationMessage}</FormErrorMessage>
-            </FormControl>
+                    <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
+                </FormControl>
 
-            <FormControl isInvalid={password.validationMessage} isRequired my='2'>
-                <FormLabel>Password</FormLabel>
-                <Input type='password' value={password.content} placeholder='Enter your password' maxLength={64} onBlur={(e) => {
-                    setPassword({
-                        content: e.target.value,
-                        validationMessage: e.target.validationMessage
-                    });
-                }} onChange={(e) => {
-                    setPassword({
-                        content: e.target.value,
-                        validationMessage: password.validationMessage
-                    });
-                }} />
-                <FormErrorMessage>{password.validationMessage}</FormErrorMessage>
-            </FormControl>
+                <HStack justifyContent='space-between' my='4'>
+                    <Checkbox colorScheme='linkedin' isChecked={remember} onChange={(e) => {
+                        setRemember(e.target.checked);
+                    }}>Remember Me</Checkbox>
+                    <Link href='#'>Forgot password?</Link>
+                </HStack>
 
-            <HStack justifyContent='space-between' my='4'>
-                <Checkbox colorScheme='linkedin' isChecked={remember} onChange={(e) => {
-                    setRemember(e.target.checked);
-                }}>Remember Me</Checkbox>
-                <Link href='#'>Forgot password?</Link>
-            </HStack>
-
-            <Button type='submit' colorScheme='linkedin' leftIcon={<UnlockIcon />} onClick={handleSubmit} variant='solid' width='full' mt={4}>Sign In</Button>
-        </Flex >
+                <Button type='submit' disabled={!submitButtonEnabled} colorScheme='linkedin' leftIcon={<UnlockIcon />} variant='solid' width='full' mt={4}>Sign In</Button>
+            </Flex >
+        </form>
     )
 }
 
