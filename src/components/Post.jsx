@@ -30,7 +30,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
 
         <Flex justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' maxW='100%' p='4' my='4' mx='12' minH='56'>
             <VStack height='100%' width='100%'>
-                <Skeleton alignSelf='flex-start' isLoaded={id !== null} minW='26%' maxW='46%' borderRadius='full'>
+                <Skeleton alignSelf='flex-start' isLoaded={id !== null} minW='26%' borderRadius='full'>
                     <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent' >
                         <Avatar src={imgUrl} />
                         <TagLabel pl='1' fontWeight='bold'> {company}</TagLabel>
@@ -71,9 +71,9 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                         </Modal>
                         <VStack>
                             <Heading py='2' alignSelf='flex-start' size='md'>{title}</Heading>
-                            <Container alignSelf='flex-start' >
+                            <div>
                                 {displayTags}
-                            </Container>
+                            </div>
                         </VStack>
                         <Container alignSelf='flex-end' textAlign='center'>
                             <Badge bgColor='transparent'><VStack><Icon boxSize='6' as={GoCalendar} /><Text > Apply By</Text><Text align='center' fontSize='sm'>{applyByDate}</Text></VStack></Badge>
