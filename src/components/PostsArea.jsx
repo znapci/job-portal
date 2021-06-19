@@ -14,9 +14,7 @@ const PostsArea = ({ apiEndpoint }) => {
         place: null,
         salary: null,
         tags: null,
-        responsibilities: null,
-        requirements: null,
-        description: null
+        modalContent: null
     }));
     const url = apiEndpoint;
 
@@ -38,8 +36,7 @@ const PostsArea = ({ apiEndpoint }) => {
             company={post.company} imgUrl={post.imgUrl} salary={post.salary}
             joinByDate={post.joinByDate} companyUrl={post.companyUrl}
             applyByDate={post.applyByDate} tags={post.tags} place={post.place}
-            responsibilities={post.responsibilities}
-            requirements={post.requirements} description={post.description} />);
+            modalContent={post.modalContent} />);
 
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>

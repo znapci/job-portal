@@ -1,6 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import {
-    Modal,
+    Text, Skeleton, Button, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon
+    , Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
@@ -8,14 +9,17 @@ import {
     ModalBody,
     ModalCloseButton,
     UnorderedList,
-    ListItem,
-} from "@chakra-ui/react"
-import { Text, Skeleton, Button, Box, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon, useDisclosure } from '@chakra-ui/react';
+    useDisclosure,
+    ListItem
+} from '@chakra-ui/react';
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
 
-const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, responsibilities, requirements, description }) => {
-    const history = useHistory();
+const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, modalContent }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const modalReqs = modalContent ? modalContent.requirements.map((req, index) => <ListItem key={index}>{req}</ListItem>) : null;
+    const modalRes = modalContent ? modalContent.responsibilities.map((res, index) => <ListItem key={index}>{res}</ListItem>) : null;
+    const modalDesc = modalContent ? modalContent.description : null
+    const history = useHistory();
 
     const url = '/post/' + id;
     //    const badges = [];
@@ -23,8 +27,6 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     //     tags.map(tag =>
     //         badges.push(<Badge bg='bisque' borderRadius='full'>{tag}</Badge>))
 
-    const modalReqs = requirements ? requirements.map((req, index) => <ListItem key={index}>{req}</ListItem>) : null;
-    const modalRes = responsibilities ? responsibilities.map((res, index) => <ListItem key={index}>{res}</ListItem>) : null;
     return (
 
         <Flex flexDir='column' justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' p='4' m='4' minH='56'>
@@ -37,6 +39,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
             </Skeleton>
             <Skeleton borderRadius='lg' my='2' minH='32' isLoaded={id !== null}>
                 <Box cursor='pointer' onClick={onOpen}>
+
                     <Modal motionPreset='slideInBottom' size='6xl' isOpen={isOpen} onClose={onClose}>
                         <ModalOverlay />
                         <ModalContent>
@@ -60,7 +63,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                                 <Heading size='md'>
                                     Description:
                                 </Heading>
-                                <Text>{description}</Text>
+                                <Text>{modalDesc}</Text>
                             </ModalBody>
                             <ModalFooter justifyContent='space-between'>
                                 <Text>Offered by: {company}</Text>
