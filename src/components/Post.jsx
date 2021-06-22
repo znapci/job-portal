@@ -25,7 +25,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     const url = '/post/' + id;
     let displayTags = []
     if (tags)
-        displayTags = tags.map((tag, index) => (<Badge bg='linkedin.300' key={index} margin='1' borderRadius='full'>{tag}</Badge>))
+        displayTags = tags.map((tag, index) => (<Badge key={index} colorScheme='telegram' margin='1' borderRadius='full'>{tag}</Badge>))
     return (
 
         <Flex justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' maxW='100%' p='4' my='4' mx='12' minH='56'>
