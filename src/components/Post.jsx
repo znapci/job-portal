@@ -25,10 +25,10 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
     const url = '/post/' + id;
     let displayTags = []
     if (tags)
-        displayTags = tags.map((tag, index) => (<Badge key={index} colorScheme='telegram' margin='1' borderRadius='full'>{tag}</Badge>))
+        displayTags = tags.map((tag, index) => (<Badge shadow='base' key={index} colorScheme='telegram' margin='1' borderRadius='full'>{tag}</Badge>))
     return (
 
-        <Flex justify='space-evenly' bg='linkedin.100' boxShadow='lg' borderRadius='lg' minW='60%' maxW='100%' p='4' my='4' mx='12' minH='56'>
+        <Flex justify='space-evenly' bg='linkedin.100' shadow='base' borderRadius='base' minW='60%' maxW='100%' p='4' my='4' mx='12' minH='56'>
             <VStack height='100%' width='100%'>
                 <Skeleton alignSelf='flex-start' isLoaded={id !== null} minW='26%' borderRadius='full'>
                     <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent' >
@@ -83,43 +83,11 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                         </Container>
                     </Flex>
                 </Skeleton>
-                {/* <Tag p='2' colorScheme='twitter' borderRadius='lg' variant='solid'>
-                    <CalendarIcon />
-                    <TagLabel>Join By: {startDate}</TagLabel></Tag>
-                <Tag p='2' colorScheme='gray' borderRadius='lg' variant='solid'>
-                    <CheckIcon />
-                    <TagLabel>Apply By: {applyByDate}</TagLabel></Tag>
-                <Tag p='2' colorScheme='gray' borderRadius='lg' variant='solid'>
-                    <HamburgerIcon />
-                    <TagLabel >Salary: {salary}</TagLabel>
-                </Tag> */}
                 <HStack justifyContent='space-around'>
                 </HStack>
             </VStack>
         </Flex>
 
     );
-    // return (
-
-    //     <div className='post' >
-    //         {id !== null ? <img src={imgUrl} height='20px' width='20px' alt='company logo'></img> : <Skeleton circle={true} height='20px' width='20px'></Skeleton>}
-
-    //         {
-    //             id !== null ?
-    //                 <div className='post-company-field' >
-    //                     {company}
-    //                 </div> : <Skeleton width='20%' />}
-
-    //         { id !== null ?
-    //             <div className='post-clickable-content' onClick={() => {
-    //                 history.push(url)
-    //             }}><span className='post-title-field'  >
-    //                     {title}
-    //                 </span>
-    //                 <span className='post-startdate-field'>{startDate}</span>
-    //                 <span className='post-lastdate-field'> {applyByDate}</span>
-    //                 <span className='post-salary-field'> {salary}</span>  </div> : <Skeleton height='15vh' />}
-    //     </div>
-    // )
 }
 export default Post;
