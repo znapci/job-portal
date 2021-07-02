@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Post from "./Post";
 import { Container } from '@chakra-ui/layout';
+import Paginator from './Paginator';
 
 const PostsArea = ({ apiEndpoint }) => {
-    const [state, setState] = useState(Array(5).fill({
+    //totalPages,CurrentPage will also be fetched with this
+    const [postsData, setPostsData] = useState(Array(10).fill({
         id: null,
         title: null,
         company: null,
@@ -16,6 +18,10 @@ const PostsArea = ({ apiEndpoint }) => {
         tags: null,
         modalContent: null
     }));
+    const [pageData, setPageData] = useState({
+        totalPages: null,
+        currentPage: null
+    });
     const url = apiEndpoint;
 
     useEffect(() => {
@@ -24,14 +30,17 @@ const PostsArea = ({ apiEndpoint }) => {
         })
             .then((res) => {
                 res.json()
-                    .then(jsonRes => setState(jsonRes));
+                    .then(jsonRes => {
+                        setPostsData(jsonRes.postsData);
+                        setPageData(jsonRes.pageData);
+                    });
             }).catch((err) => {
                 console.error(err);
                 alert('Sorry something went wrong :(\n');
             });
 
     }, [url]);
-    const posts = state.map((post, index) =>
+    const posts = postsData.map((post, index) =>
         <Post key={index} id={post.id} title={post.title}
             company={post.company} imgUrl={post.imgUrl} salary={post.salary}
             joinByDate={post.joinByDate} companyUrl={post.companyUrl}
@@ -41,6 +50,7 @@ const PostsArea = ({ apiEndpoint }) => {
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
             {posts}
+            <Paginator data={pageData} />
         </Container>
     )
 }
