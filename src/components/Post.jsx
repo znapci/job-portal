@@ -1,6 +1,17 @@
 import { useHistory } from 'react-router-dom';
 import {
-    Text, Skeleton, Button, Heading, Tag, TagLabel, Avatar, HStack, VStack, Badge, Flex, Icon,
+    Text,
+    Skeleton,
+    Button,
+    Heading,
+    Tag,
+    TagLabel,
+    Avatar,
+    HStack,
+    VStack,
+    Badge,
+    Flex,
+    Icon,
     Container,
     Modal,
     ModalOverlay,
@@ -13,6 +24,7 @@ import {
     useDisclosure,
     ListItem
 } from '@chakra-ui/react';
+import { ArrowRightIcon } from '@chakra-ui/icons';
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go';
 
 const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, modalContent }) => {
@@ -40,7 +52,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                     <Flex cursor='pointer' onClick={onOpen}>
                         <Modal motionPreset='slideInBottom' size='6xl' isOpen={isOpen} onClose={onClose}>
                             <ModalOverlay />
-                            <ModalContent>
+                            <ModalContent >
                                 <ModalHeader>{title}</ModalHeader>
                                 <ModalCloseButton />
                                 <ModalBody>
@@ -65,7 +77,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                                 </ModalBody>
                                 <ModalFooter justifyContent='space-between'>
                                     <Text>Offered by: {company}</Text>
-                                    <Button onClick={() => history.push(url)} colorScheme='linkedin'>Apply</Button>
+                                    <Button onClick={() => history.push(url)} colorScheme='linkedin'> <ArrowRightIcon /></Button>
                                 </ModalFooter>
                             </ModalContent>
                         </Modal>
