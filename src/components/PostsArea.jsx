@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import Post from "./Post";
 import { Container } from '@chakra-ui/layout';
 import Paginator from './Paginator';
+import { useParams } from "react-router-dom";
 
 const PostsArea = ({ apiEndpoint }) => {
-    //totalPages,CurrentPage will also be fetched with this
     const [postsData, setPostsData] = useState(Array(10).fill({
         id: null,
         title: null,
@@ -19,14 +19,15 @@ const PostsArea = ({ apiEndpoint }) => {
         modalContent: null
     }));
     const [pageData, setPageData] = useState({
-        totalPages: null,
-        currentPage: null
+        totalPages: null
     });
-    const url = apiEndpoint;
+    const urlParams = useParams();
+    const url = `${apiEndpoint}/${urlParams.pageNo}`;
 
     useEffect(() => {
         fetch(url, {
             method: 'GET',
+
         })
             .then((res) => {
                 res.json()
@@ -50,7 +51,7 @@ const PostsArea = ({ apiEndpoint }) => {
     return (
         <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
             {posts}
-            <Paginator data={pageData} />
+            <Paginator totalPages={pageData.totalPages} currentPage={+urlParams.pageNo} />
         </Container>
     )
 }

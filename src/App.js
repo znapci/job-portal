@@ -19,7 +19,8 @@ const App = () => {
         <BrowserRouter>
             <Flex bg='linkedin.50' minH='100vh' width='100%' align='center' justify='center' zIndex='base'>
                 <Switch>
-                    <Route exact path='/posts'>
+                    <Route path='/posts' exact><Redirect to='/posts/1' /></Route>
+                    <Route path='/posts/:pageNo'>
                         <Header></Header>
                         <PostsArea apiEndpoint='http://localhost:8000/posts' />
                     </Route>

@@ -1,18 +1,19 @@
 import { HStack } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
-//import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Paginator = ({ data }) => {
-    //let history = useHistory();
+const Paginator = ({ totalPages, currentPage }) => {
+    let history = useHistory();
+
     return (
         <HStack>
             <ButtonGroup>
-                <Button><ArrowBackIcon /></Button>
-                <Button>{data.currentPage}</Button>
-                <Button><ArrowForwardIcon /></Button>
+                <Button disabled={currentPage === 1} onClick={() => history.push(`/posts/${--currentPage}`)}><ArrowBackIcon /></Button>
+                <Button>{currentPage}</Button>
+                <Button disabled={currentPage === totalPages} onClick={() => history.push(`/posts/${++currentPage}`)}><ArrowForwardIcon /></Button>
             </ButtonGroup>
-        </HStack>
+        </HStack >
     )
 }
 export default Paginator;
