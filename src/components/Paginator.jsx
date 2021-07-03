@@ -5,9 +5,10 @@ import { useHistory } from "react-router-dom";
 
 const Paginator = ({ totalPages, currentPage }) => {
     let history = useHistory();
-    let pageNos = [...Array(totalPages).keys()]
-    let pageButtons = pageNos.map((no, index) => <Button key={index} onClick={() => { history.push(`/posts/${no + 1}`) }}>{no + 1}</Button>);
-
+    //array frm 1 to totalPages in locations 0...totalPages-1
+    let pageNos = [...Array(totalPages + 1).keys()].slice(1, totalPages + 1);
+    let pageButtons = pageNos.map((no, index) => <Button key={index} onClick={() => { history.push(`/posts/${no}`) }}>{no}</Button>);
+    pageButtons[currentPage - 1] = <Button key={currentPage - 1} isActive>{currentPage}</Button>
     return (
         <HStack>
             <ButtonGroup>
@@ -17,7 +18,7 @@ const Paginator = ({ totalPages, currentPage }) => {
                 <Button disabled={currentPage === totalPages} onClick={() => history.push(`/posts/${++currentPage}`)}><ArrowForwardIcon /></Button>
                 <Button disabled={currentPage === totalPages} onClick={() => history.push(`/posts/${totalPages}`)}><ArrowRightIcon /></Button>
             </ButtonGroup>
-        </HStack >
+        </HStack>
     )
 }
 export default Paginator;
