@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react";
+import { Skeleton } from "@chakra-ui/react";
 import { Button, ButtonGroup } from "@chakra-ui/react"
 import { ArrowBackIcon, ArrowForwardIcon, ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,7 @@ const Paginator = ({ totalPages, currentPage }) => {
     let pageButtons = pageNos.map((no, index) => <Button key={index} onClick={() => { history.push(`/posts/${no}`) }}>{no}</Button>);
     pageButtons[currentPage - 1] = <Button key={currentPage - 1} isActive>{currentPage}</Button>
     return (
-        <HStack>
+        <Skeleton borderRadius='base' isLoaded={totalPages}>
             <ButtonGroup>
                 <Button disabled={currentPage === 1} onClick={() => history.push(`/posts/${1}`)}><ArrowLeftIcon /></Button>
                 <Button disabled={currentPage === 1} onClick={() => history.push(`/posts/${--currentPage}`)}><ArrowBackIcon /></Button>
@@ -18,7 +18,7 @@ const Paginator = ({ totalPages, currentPage }) => {
                 <Button disabled={currentPage === totalPages} onClick={() => history.push(`/posts/${++currentPage}`)}><ArrowForwardIcon /></Button>
                 <Button disabled={currentPage === totalPages} onClick={() => history.push(`/posts/${totalPages}`)}><ArrowRightIcon /></Button>
             </ButtonGroup>
-        </HStack>
+        </Skeleton>
     )
 }
 export default Paginator;
