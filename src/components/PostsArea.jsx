@@ -5,7 +5,7 @@ import Paginator from './Paginator';
 import { useParams } from "react-router-dom";
 
 const PostsArea = ({ apiEndpoint }) => {
-    const [postsData, setPostsData] = useState(Array(10).fill({
+    const [postsData, setPostsData] = useState(Array(15).fill({
         id: null,
         title: null,
         company: null,
@@ -29,15 +29,15 @@ const PostsArea = ({ apiEndpoint }) => {
             method: 'GET',
 
         })
-            .then((res) => {
+            .then(res =>
                 res.json()
                     .then(jsonRes => {
                         setPostsData(jsonRes.postsData);
                         setPageData(jsonRes.pageData);
-                    });
-            }).catch((err) => {
+                    })
+            ).catch((err) => {
                 console.error(err);
-                alert('Sorry something went wrong :(\n');
+                alert('Sorry something went wrong, try reloading the page :|\n');
             });
 
     }, [url]);
