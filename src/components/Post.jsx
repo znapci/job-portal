@@ -48,7 +48,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
                         <TagLabel pl='1' fontWeight='bold'> {company}</TagLabel>
                     </Tag>
                 </Skeleton>
-                <Skeleton alignSelf='flex-start' borderRadius='lg' my='2' minH='32' w='100%' isLoaded={id !== null}>
+                <Skeleton alignSelf='flex-start' borderRadius='base' my='2' minH='32' w='100%' isLoaded={id !== null}>
                     <Flex cursor='pointer' onClick={onOpen}>
                         <Modal motionPreset='slideInBottom' size='6xl' isOpen={isOpen} onClose={onClose}>
                             <ModalOverlay />

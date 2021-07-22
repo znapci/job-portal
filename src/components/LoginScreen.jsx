@@ -14,7 +14,7 @@ import {
     useToast
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as ReactLink } from 'react-router-dom';
 
 const LoginScreen = ({ apiEndpoint, getToken }) => {
     const url = apiEndpoint;
@@ -109,7 +109,7 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
                     <Checkbox colorScheme='linkedin' isChecked={remember} onChange={(e) => {
                         setRemember(e.target.checked);
                     }}>Remember Me</Checkbox>
-                    <Link href='#'>Forgot password?</Link>
+                    <Link as={ReactLink} to={`/login/forgot?email=${email}`}>Forgot password?</Link>
                 </HStack>
 
                 <Button type='submit' disabled={!submitButtonEnabled} colorScheme='linkedin' leftIcon={<UnlockIcon />} variant='solid' width='full' mt={4}>Sign In</Button>
