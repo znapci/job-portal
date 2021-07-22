@@ -5,6 +5,7 @@ import Header from './components/Header';
 import LoginScreen from './components/LoginScreen';
 import { useCallback, useState, useEffect } from 'react';
 import { Flex } from '@chakra-ui/layout';
+import ForgotPassword from './components/ForgotPassword';
 
 const App = () => {
     const [token, SetToken] = useState(null);
@@ -30,6 +31,9 @@ const App = () => {
                     {/* <Route path='/addpost'>
                         <AddPost apiEndpoint='http://localhost:8000/addpost'></AddPost>
                     </Route> */}
+                    <Route path='/login/forgot'>
+                        <ForgotPassword apiEndpoint='http://localhost:8000/login/forgot'></ForgotPassword>
+                    </Route>
                     <Route path='/login'>
                         <LoginScreen apiEndpoint='http://localhost:8000/login/' getToken={getToken}></LoginScreen>
                     </Route>
