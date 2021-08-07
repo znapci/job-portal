@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PostsArea from './components/PostsArea';
 import ExpandedPost from './components/ExpandedPost';
 import Header from './components/Header';
@@ -17,7 +17,7 @@ const App = () => {
         console.log(token);
     }, [token])
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Flex bg='linkedin.50' minH='100vh' width='100%' align='center' justify='center' zIndex='base'>
                 <Switch>
                     <Route path='/posts' exact><Redirect to='/posts/1' /></Route>
@@ -44,7 +44,7 @@ const App = () => {
                 </Switch>
 
             </Flex>
-        </BrowserRouter>);
+        </HashRouter>);
 }
 
 export default App;
