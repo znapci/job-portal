@@ -38,17 +38,15 @@ createServer({
             return `Post ${req.params.id}`
         })
         this.get('/posts/:pageNo',(schema,req)=>{
-            const nd = {
-                postsData: t,
-                pageData: {
-                  totalPages: 20,
+              if (req.params <= 20 && req.params.pageNo >= 1) 
+                return {
+                    postsData: t,
+                    pageData: {
+                      totalPages: 20,
+                    }
                 }
-              }
-              if (req.params.pageNo <= 20 && req.params.pageNo >= 1) {
-                return nd;
-              }
               else
-                return 'Not found';
+                return null
         })
         this.post('/login',(schema,req)=>{
             const password = JSON.parse(req.requestBody).password
