@@ -23,19 +23,16 @@ const App = () => {
                     <Route path='/posts' exact><Redirect to='/posts/1' /></Route>
                     <Route path='/posts/:pageNo'>
                         <Header></Header>
-                        <PostsArea apiEndpoint='http://localhost:8000/posts' />
+                        <PostsArea apiEndpoint='api/posts' />
                     </Route>
                     <Route path='/post/:id'>
-                        <ExpandedPost apiEndpoint='http://localhost:8000/post/' />
+                        <ExpandedPost apiEndpoint='api/post/' />
                     </Route>
-                    {/* <Route path='/addpost'>
-                        <AddPost apiEndpoint='http://localhost:8000/addpost'></AddPost>
-                    </Route> */}
                     <Route path='/login/forgot'>
-                        <ForgotPassword apiEndpoint='http://localhost:8000/login/forgot'></ForgotPassword>
+                        <ForgotPassword apiEndpoint='api/login/forgot'></ForgotPassword>
                     </Route>
                     <Route path='/login'>
-                        <LoginScreen apiEndpoint='http://localhost:8000/login/' getToken={getToken}></LoginScreen>
+                        <LoginScreen apiEndpoint='api/login/' getToken={getToken}></LoginScreen>
                     </Route>
                     <Route path='/'>
                         <Redirect to='/login'></Redirect>
