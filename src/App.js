@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import PostsArea from './components/PostsArea';
 import ExpandedPost from './components/ExpandedPost';
 import Header from './components/Header';
@@ -17,25 +17,22 @@ const App = () => {
         console.log(token);
     }, [token])
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Flex bg='linkedin.50' minH='100vh' width='100%' align='center' justify='center' zIndex='base'>
                 <Switch>
                     <Route path='/posts' exact><Redirect to='/posts/1' /></Route>
                     <Route path='/posts/:pageNo'>
                         <Header></Header>
-                        <PostsArea apiEndpoint='http://localhost:8000/posts' />
+                        <PostsArea apiEndpoint='api/posts' />
                     </Route>
                     <Route path='/post/:id'>
-                        <ExpandedPost apiEndpoint='http://localhost:8000/post/' />
+                        <ExpandedPost apiEndpoint='api/post/' />
                     </Route>
-                    {/* <Route path='/addpost'>
-                        <AddPost apiEndpoint='http://localhost:8000/addpost'></AddPost>
-                    </Route> */}
                     <Route path='/login/forgot'>
-                        <ForgotPassword apiEndpoint='http://localhost:8000/login/forgot'></ForgotPassword>
+                        <ForgotPassword apiEndpoint='api/login/forgot'></ForgotPassword>
                     </Route>
                     <Route path='/login'>
-                        <LoginScreen apiEndpoint='http://localhost:8000/login/' getToken={getToken}></LoginScreen>
+                        <LoginScreen apiEndpoint='api/login/' getToken={getToken}></LoginScreen>
                     </Route>
                     <Route path='/'>
                         <Redirect to='/login'></Redirect>
@@ -44,7 +41,7 @@ const App = () => {
                 </Switch>
 
             </Flex>
-        </BrowserRouter>);
+        </HashRouter>);
 }
 
 export default App;
