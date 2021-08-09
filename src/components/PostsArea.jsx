@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Post from './Post'
 import { Container } from '@chakra-ui/layout'
 import Paginator from './Paginator'
@@ -14,7 +14,7 @@ const PostsArea = ({ apiEndpoint }) => {
   const fetchedPageData = useSelector(state => state.posts.value.pageData)
   useEffect(() => {
     dispatch(fetchData(url))
-  }, [url])
+  }, [url, dispatch])
 
   const posts = fetchedPostsData.map((post, index) =>
     <Post
