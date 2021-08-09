@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react'
 import { ArrowRightIcon } from '@chakra-ui/icons'
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go'
+import { useSelector } from 'react-redux'
 
 const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, modalContent }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -33,7 +34,7 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
   const modalRes = modalContent ? modalContent.responsibilities.map((res, index) => <ListItem key={index}>{res}</ListItem>) : null
   const modalDesc = modalContent ? modalContent.description : null
   const history = useHistory()
-
+  const postsStatus = useSelector(state => state.posts.status)
   const url = '/post/' + id
   let displayTags = []
   if (tags) { displayTags = tags.map((tag, index) => (<Badge shadow='base' key={index} colorScheme='telegram' margin='1' borderRadius='full'>{tag}</Badge>)) }
@@ -41,13 +42,13 @@ const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate,
 
     <Flex justify='space-evenly' bg='linkedin.100' shadow='base' borderRadius='base' minW='60%' maxW='100%' p='4' my='4' mx='12' minH='56'>
       <VStack height='100%' width='100%'>
-        <Skeleton alignSelf='flex-start' isLoaded={id !== null} minW='26%' borderRadius='full'>
+        <Skeleton alignSelf='flex-start' isLoaded={postsStatus === 'loaded'} minW='26%' borderRadius='full'>
           <Tag cursor='pointer' onClick={() => history.push(`/company/${companyUrl}`)} p='-2' bgColor='transparent'>
             <Avatar src={imgUrl} />
             <TagLabel pl='1' fontWeight='bold'> {company}</TagLabel>
           </Tag>
         </Skeleton>
-        <Skeleton alignSelf='flex-start' borderRadius='base' my='2' minH='32' w='100%' isLoaded={id !== null}>
+        <Skeleton alignSelf='flex-start' borderRadius='base' my='2' minH='32' w='100%' isLoaded={postsStatus === 'loaded'}>
           <Flex cursor='pointer' onClick={onOpen}>
             <Modal motionPreset='slideInBottom' size='6xl' isOpen={isOpen} onClose={onClose}>
               <ModalOverlay />

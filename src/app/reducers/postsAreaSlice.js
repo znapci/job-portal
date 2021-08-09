@@ -2,24 +2,24 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 const initialState = {
   value: {
     postsData:
-            Array(15).fill({
-              id: null,
-              title: null,
-              company: null,
-              imgUrl: null,
-              companyUrl: null,
-              applyByDate: null,
-              joinByDate: null,
-              place: null,
-              salary: null,
-              tags: null,
-              modalContent: null
-            }),
+      Array(15).fill({
+        id: null,
+        title: null,
+        company: null,
+        imgUrl: null,
+        companyUrl: null,
+        applyByDate: null,
+        joinByDate: null,
+        place: null,
+        salary: null,
+        tags: null,
+        modalContent: null
+      }),
     pageData: {
       totalPages: null
     }
   },
-  status: 'idle'
+  status: 'uninitialized'
 }
 // todo handle error codes
 export const fetchData = createAsyncThunk(
@@ -41,16 +41,16 @@ export const PostsAreaSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers:
-        (builder) => {
-          builder
-            .addCase(fetchData.pending, (state) => {
-              state.status = 'loading'
-            })
-            .addCase(fetchData.fulfilled, (state, action) => {
-              state.status = 'idle'
-              state.value = action.payload
-            })
-        },
+    (builder) => {
+      builder
+        .addCase(fetchData.pending, (state) => {
+          state.status = 'loading'
+        })
+        .addCase(fetchData.fulfilled, (state, action) => {
+          state.status = 'loaded'
+          state.value = action.payload
+        })
+    },
   default: state => state
 })
 
