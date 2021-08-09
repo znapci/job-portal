@@ -3,18 +3,32 @@ import Post from './Post'
 import { Container } from '@chakra-ui/layout'
 import Paginator from './Paginator'
 import { useParams } from 'react-router-dom'
-import { fetchPostsData } from '../app/reducers/postsSlice'
-import { useSelector, useDispatch } from 'react-redux';
-
+import { fetchData } from '../app/reducers/postsAreaSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 const PostsArea = ({ apiEndpoint }) => {
   const urlParams = useParams()
   const url = `${apiEndpoint}/${urlParams.pageNo}`
-  const dispatch = useDispatch();
-  dispatch(fetchPostsData(url))
-  const value = useSelector(state => state)
+  const dispatch = useDispatch()
+  const fetchedPostsData = useSelector(state => state.posts.value.postsData)
+  const fetchedPageData = useSelector(state => state.posts.value.pageData)
+  useEffect(() => {
+    dispatch(fetchData(url))
+  }, [url])
+
+  const posts = fetchedPostsData.map((post, index) =>
+    <Post
+      key={index} id={post.id} title={post.title}
+      company={post.company} imgUrl={post.imgUrl} salary={post.salary}
+      joinByDate={post.joinByDate} companyUrl={post.companyUrl}
+      applyByDate={post.applyByDate} tags={post.tags} place={post.place}
+      modalContent={post.modalContent}
+    />)
   return (
-    <Container>{value}</Container>
+    <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
+      {posts}
+      <Paginator totalPages={fetchedPageData.totalPages} currentPage={+urlParams.pageNo} />
+    </Container>
   )
   // const urlParams = useParams()
   // const [postsData, setPostsData] = useState(Array(15).fill({
