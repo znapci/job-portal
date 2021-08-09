@@ -41,7 +41,7 @@ export const fetchData = createAsyncThunk(
   //   })
 )
 export const PostsAreaSlice = createSlice({
-  name: 'posts',
+  name: 'postsArea',
   initialState,
   reducers: {},
   extraReducers:

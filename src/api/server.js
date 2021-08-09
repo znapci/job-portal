@@ -33,7 +33,7 @@ const t = data.map((post, id) =>
 createServer({
   routes () {
     this.namespace = 'api'
-    this.timing = 0
+    this.timing = 2000
     this.get('/post/:id', (schema, req) => {
       return `Post ${req.params.id}`
     })
@@ -53,13 +53,13 @@ createServer({
       const password = JSON.parse(req.requestBody).password
       if (password === 'success') {
         return {
-          status: 'success',
-          token: 'lol'
+          token: 'lol',
+          loginStatus: 'successful'
         }
       } else {
         return {
-          status: 'failure',
-          token: 'lol'
+          token: 'hello',
+          loginStatus: 'failure'
         }
       }
     })

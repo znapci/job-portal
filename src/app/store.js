@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import postsAreaReducer from './reducers/postsAreaSlice'
+import loginScreenReducer from './reducers/loginScreenSlice'
 
 export const store = configureStore({
   reducer: {
-    posts: postsAreaReducer
+    postsArea: postsAreaReducer,
+    loginScreen: loginScreenReducer
+
   }
 })

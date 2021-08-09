@@ -11,9 +11,9 @@ const PostsArea = ({ apiEndpoint }) => {
   const urlParams = useParams()
   const url = `${apiEndpoint}/${urlParams.pageNo}`
   const dispatch = useDispatch()
-  const fetchedPostsData = useSelector(state => state.posts.value.postsData)
-  const fetchedPageData = useSelector(state => state.posts.value.pageData)
-  const postsStatus = useSelector(state => state.posts.status)
+  const fetchedPostsData = useSelector(state => state.postsArea.value.postsData)
+  const fetchedPageData = useSelector(state => state.postsArea.value.pageData)
+  const postsStatus = useSelector(state => state.postsArea.status)
   useEffect(() => {
     dispatch(fetchData(url))
   }, [url, dispatch])

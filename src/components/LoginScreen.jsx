@@ -14,9 +14,11 @@ import {
   useToast
 } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, Link as ReactLink } from 'react-router-dom'
+import { requestLogin } from '../app/reducers/loginScreenSlice'
 
-const LoginScreen = ({ apiEndpoint, getToken }) => {
+const LoginScreen = ({ apiEndpoint }) => {
   const url = apiEndpoint
   const history = useHistory()
   const [email, setEmail] = useState('')
@@ -25,23 +27,47 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
   const [passwordValidation, setPasswordValidation] = useState('')
   const [remember, setRemember] = useState(true)
   const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true)
-  const [recievedResponse, setRecievedResponse] = useState({
-    token: 'placeholder',
-    status: undefined
-  })
+  const dispatch = useDispatch()
+  const loginState = useSelector(state => state.loginScreen)
+
+  // const [recievedResponse, setRecievedResponse] = useState({
+  //   token: 'placeholder',
+  //   status: undefined
+  // })
   const toast = useToast()
+  // useEffect(() => {
+  //   toast.closeAll()
+  //   if (recievedResponse.status === 'success') {
+  //     toast({
+  //       title: 'Login Successful',
+  //       description: 'You will be redirected to posts shortly',
+  //       status: 'success',
+  //       duration: 1200
+  //     })
+  //     getToken(recievedResponse.token)
+  //   } else if (recievedResponse.status === 'failure') {
+  //     setSubmitButtonEnabled(true)
+  //     toast({
+  //       title: 'Invalid username or password',
+  //       description: 'Did you type your credentials properly?',
+  //       status: 'error',
+  //       duration: 2000,
+  //       isClosable: true
+  //     })
+  //   }
+  // }, [toast, history, getToken, recievedResponse])
+
   useEffect(() => {
-    toast.closeAll()
-    if (recievedResponse.status === 'success') {
+    if (loginState.value.loginStatus === 'successful') {
+      toast.closeAll()
       toast({
-        title: 'Login Successful',
-        description: 'You will be redirected to posts shortly',
+        title: 'Logged-In',
         status: 'success',
-        duration: 1200,
-        onCloseComplete: () => history.push('/posts')
+        duration: 1200
       })
-      getToken(recievedResponse.token)
-    } else if (recievedResponse.status === 'failure') {
+      history.push('/posts')
+    } else if (loginState.value.loginStatus === 'failure') {
+      toast.closeAll()
       setSubmitButtonEnabled(true)
       toast({
         title: 'Invalid username or password',
@@ -50,41 +76,35 @@ const LoginScreen = ({ apiEndpoint, getToken }) => {
         duration: 2000,
         isClosable: true
       })
+      //
+    } else if (loginState.status === 'rejected') {
+      toast.closeAll()
+      toast({
+        title: 'Something went wrong :(',
+        description: 'Check your connection and try reloading the page',
+        status: 'error',
+        duration: 2000,
+        onCloseComplete: () => {
+          console.log(loginState.value)
+          setSubmitButtonEnabled(true)
+        }
+      })
     }
-  }, [toast, history, getToken, recievedResponse])
-
+  }, [loginState, toast, history])
   const handleSubmit = (e) => {
     e.preventDefault()
     e.stopPropagation()
     if ((email && password && !emailvalidation && !passwordValidation)) {
       setSubmitButtonEnabled(false)
+      dispatch(requestLogin({ url, email, password, remember }))
       toast({
         title: 'Logging you in...',
         status: 'info',
-        duration: null
-      })
-      fetch(url, {
-        headers: {
-          'content-type': 'application/json'
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          remember: remember
-        })
-      }).then(res => res.json().then(jsonData => setRecievedResponse(jsonData))).catch(err => {
-        toast.closeAll()
-        setSubmitButtonEnabled(true)
-        toast({
-          title: 'Something went wrong :(',
-          description: 'Sorry there\'s something wrong with the login connection... is your internet working fine?',
-          status: 'error'
-        })
-        console.error(err)
+        duration: 1200
       })
     }
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <Flex flexDir='column' justify='space-evenly' bgColor='white' borderRadius='10' w='sm' minH='md' p='5' textAlign='left'>
