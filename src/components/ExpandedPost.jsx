@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-
+import { useEffect, useState } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
 
 const ExpandedPost = ({ apiEndpoint }) => {
-    const { id } = useParams();
-    const history = useHistory();
-    const [post, setPost] = useState(null);
-    const url = apiEndpoint + id;
+  const { id } = useParams()
+  const history = useHistory()
+  const [post, setPost] = useState(null)
+  const url = apiEndpoint + id
 
-    useEffect(() => {
-        fetch(url, { method: 'GET' })
-            .then(res => res.text().then(res => setPost(res))
-                .catch(err => console.log(err)))
-            .catch(err => console.log(err));
-    }, [url]);
+  useEffect(() => {
+    fetch(url, { method: 'GET' })
+      .then(res => res.text().then(res => setPost(res))
+        .catch(err => console.log(err)))
+      .catch(err => console.log(err))
+  }, [url])
 
-    return (<div className='expanded-post' onClick={() => history.goBack()}>
-        <h1>{String(post)}<br />Go back!</h1></div>);
+  return (
+    <div className='expanded-post' onClick={() => history.goBack()}>
+      <h1>{String(post)}<br />Go back!</h1>
+    </div>
+  )
 }
 
-export default ExpandedPost;
+export default ExpandedPost
