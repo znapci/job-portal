@@ -26,15 +26,13 @@ import {
 } from '@chakra-ui/react'
 import { ArrowRightIcon } from '@chakra-ui/icons'
 import { GoLocation, GoCalendar, GoRuby, GoMailRead } from 'react-icons/go'
-import { useSelector } from 'react-redux'
 
-const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, modalContent }) => {
+const Post = ({ id, title, company, companyUrl, imgUrl, joinByDate, applyByDate, salary, tags, place, modalContent, postsStatus }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const modalReqs = modalContent ? modalContent.requirements.map((req, index) => <ListItem key={index}>{req}</ListItem>) : null
   const modalRes = modalContent ? modalContent.responsibilities.map((res, index) => <ListItem key={index}>{res}</ListItem>) : null
   const modalDesc = modalContent ? modalContent.description : null
   const history = useHistory()
-  const postsStatus = useSelector(state => state.posts.status)
   const url = '/post/' + id
   let displayTags = []
   if (tags) { displayTags = tags.map((tag, index) => (<Badge shadow='base' key={index} colorScheme='telegram' margin='1' borderRadius='full'>{tag}</Badge>)) }

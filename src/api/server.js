@@ -1,4 +1,4 @@
-import { createServer } from 'miragejs'
+import { createServer, Response } from 'miragejs'
 import { jdata } from './data'
 import { LoremIpsum } from 'lorem-ipsum'
 const data = Array(15).fill(jdata)
@@ -33,7 +33,7 @@ const t = data.map((post, id) =>
 createServer({
   routes () {
     this.namespace = 'api'
-    this.timing = 2000
+    this.timing = 0
     this.get('/post/:id', (schema, req) => {
       return `Post ${req.params.id}`
     })
@@ -45,7 +45,9 @@ createServer({
             totalPages: 20
           }
         }
-      } else { return null }
+      } else {
+        return new Response(404)
+      }
     })
     this.post('/login', (schema, req) => {
       const password = JSON.parse(req.requestBody).password

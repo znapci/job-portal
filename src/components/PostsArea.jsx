@@ -5,6 +5,7 @@ import Paginator from './Paginator'
 import { useParams } from 'react-router-dom'
 import { fetchData } from '../app/reducers/postsAreaSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { Error } from './Error'
 
 const PostsArea = ({ apiEndpoint }) => {
   const urlParams = useParams()
@@ -12,6 +13,7 @@ const PostsArea = ({ apiEndpoint }) => {
   const dispatch = useDispatch()
   const fetchedPostsData = useSelector(state => state.posts.value.postsData)
   const fetchedPageData = useSelector(state => state.posts.value.pageData)
+  const postsStatus = useSelector(state => state.posts.status)
   useEffect(() => {
     dispatch(fetchData(url))
   }, [url, dispatch])
@@ -23,7 +25,11 @@ const PostsArea = ({ apiEndpoint }) => {
       joinByDate={post.joinByDate} companyUrl={post.companyUrl}
       applyByDate={post.applyByDate} tags={post.tags} place={post.place}
       modalContent={post.modalContent}
+      postsStatus={postsStatus.requestState}
     />)
+  if (postsStatus.requestState === 'rejected') {
+    return <Error error={postsStatus.error} />
+  }
   return (
     <Container py='20' centerContent justifyContent='space-evenly' minH='100vh' bg='white' maxW='4xl'>
       {posts}

@@ -6,7 +6,6 @@ import LoginScreen from './components/LoginScreen'
 import { useCallback, useState, useEffect } from 'react'
 import { Flex } from '@chakra-ui/layout'
 import ForgotPassword from './components/ForgotPassword'
-import { NotFound } from './components/404'
 
 const App = () => {
   const [token, SetToken] = useState(null)
@@ -37,9 +36,6 @@ const App = () => {
           </Route>
           <Route path='/'>
             <Redirect to='/login' />
-          </Route>
-          <Route path='/notfound'>
-            <NotFound />
           </Route>
         </Switch>
 
